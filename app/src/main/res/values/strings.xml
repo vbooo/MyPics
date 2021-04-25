@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyPics</string>
+    <string name="title_activity_list_album">Albums</string>
+</resources>
