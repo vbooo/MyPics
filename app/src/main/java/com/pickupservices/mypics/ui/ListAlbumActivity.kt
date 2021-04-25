@@ -1,19 +1,15 @@
 package com.pickupservices.mypics.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.pickupservices.mypics.R
 import com.pickupservices.mypics.databinding.ActivityListAlbumBinding
-import com.pickupservices.mypics.domain.model.Album
 
 class ListAlbumActivity : AppCompatActivity() {
 
@@ -22,6 +18,9 @@ class ListAlbumActivity : AppCompatActivity() {
 
     // Adapter for managing albums list
     private lateinit var viewAdapter: ListAlbumAdapter
+
+    // ViewModel for managing UI related data
+    private val viewModel: ListAlbumViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,10 @@ class ListAlbumActivity : AppCompatActivity() {
 
         setUpAdapter()
 
-        viewAdapter.listAlbum = getList()
+        // We observe the value of listAlbum and update it when the data changes
+        viewModel.listAlbum.observe(this, {
+            viewAdapter.listAlbum = it
+        })
 
     }
 
@@ -53,24 +55,5 @@ class ListAlbumActivity : AppCompatActivity() {
             )
             this.addItemDecoration(dividerItemDecoration)
         }
-    }
-
-    /**
-     * TODO temporary function for getting list of albums [TO REMOVE]
-     */
-    private fun getList(): List<Album> {
-        return listOf(
-            Album("Album 1", "Jean"),
-            Album("Album 2", "Michel"),
-            Album("Album 3", "Kevin"),
-            Album("Album 4", "Martin"),
-            Album("Album 5", "Jean"),
-            Album("Album 6", "Jean"),
-            Album("Album 7", "Michel"),
-            Album("Album 8", "Jean"),
-            Album("Album 9", "Kevin"),
-            Album("Album 10", "Jean"),
-            Album("Album 11", "Jacques"),
-        )
     }
 }
