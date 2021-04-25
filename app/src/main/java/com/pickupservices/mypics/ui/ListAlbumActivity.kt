@@ -1,16 +1,17 @@
 package com.pickupservices.mypics.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.pickupservices.mypics.R
 import com.pickupservices.mypics.databinding.ActivityListAlbumBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListAlbumActivity : AppCompatActivity() {
 
     // View binding for calling UI elements

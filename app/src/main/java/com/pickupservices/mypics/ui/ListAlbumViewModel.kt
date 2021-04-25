@@ -2,36 +2,31 @@ package com.pickupservices.mypics.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.pickupservices.mypics.domain.data
 import com.pickupservices.mypics.domain.model.Album
+import com.pickupservices.mypics.domain.successOr
+import com.pickupservices.mypics.domain.usecase.GetAllAlbumsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * This ViewModel handles [ListAlbumActivity] data
  */
-class ListAlbumViewModel : ViewModel() {
+@HiltViewModel
+class ListAlbumViewModel @Inject constructor(
+    val getAllAlbumsUseCase: GetAllAlbumsUseCase
+) : ViewModel() {
 
     // The Album list
     val listAlbum: MutableLiveData<List<Album>> = MutableLiveData()
 
     init {
-        listAlbum.value = getList()
-    }
-
-    /**
-     * TODO temporary function for getting list of albums [TO REMOVE]
-     */
-    private fun getList(): List<Album> {
-        return listOf(
-            Album("Album 1", "Jean"),
-            Album("Album 2", "Michel"),
-            Album("Album 3", "Kevin"),
-            Album("Album 4", "Martin"),
-            Album("Album 5", "Jean"),
-            Album("Album 6", "Jean"),
-            Album("Album 7", "Michel"),
-            Album("Album 8", "Jean"),
-            Album("Album 9", "Kevin"),
-            Album("Album 10", "Jean"),
-            Album("Album 11", "Jacques"),
-        )
+        viewModelScope.launch {
+            getAllAlbumsUseCase(Unit).let {
+                listAlbum.postValue(it.successOr(null))
+            }
+        }
     }
 }
