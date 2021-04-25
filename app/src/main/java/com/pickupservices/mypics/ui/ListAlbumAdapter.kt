@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pickupservices.mypics.R
 import com.pickupservices.mypics.domain.model.Album
+import com.pickupservices.mypics.domain.usecase.FunctionalAlbum
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 /**
@@ -15,7 +16,7 @@ internal class ListAlbumAdapter(@ApplicationContext val context: Context) :
     RecyclerView.Adapter<AlbumHolder>() {
 
     // This list contains all the Album
-    var listAlbum: List<Album>? = null
+    var listAlbum: List<FunctionalAlbum>? = null
         set(value) {
             value?.let {
                 field = value
@@ -25,7 +26,7 @@ internal class ListAlbumAdapter(@ApplicationContext val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_album, parent, false)
-        return AlbumHolder(view)
+        return AlbumHolder(view, context)
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +42,7 @@ internal class ListAlbumAdapter(@ApplicationContext val context: Context) :
             }
 
             list[position].nameAuthor.let {
-                holder.setAlbumName(it)
+                holder.setAuthorName(it)
             }
         }
     }

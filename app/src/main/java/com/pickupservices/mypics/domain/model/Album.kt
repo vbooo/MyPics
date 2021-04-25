@@ -2,12 +2,17 @@ package com.pickupservices.mypics.domain.model
 
 data class Album (
     /**
-     * Name album value
+     * id
      */
-    val nameAlbum: String,
+    val id: Int,
 
     /**
-     * Name of the album author
+     * title
      */
-    val nameAuthor: String
+    val title: String,
+
+    /**
+     * title
+     */
+    val idAuthor: Int
 )

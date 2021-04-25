@@ -1,6 +1,7 @@
 package com.pickupservices.mypics.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -40,6 +41,15 @@ class ListAlbumActivity : AppCompatActivity() {
             viewAdapter.listAlbum = it
         })
 
+        viewModel.isLoading.observe(this, {
+            binding.scrollViewAlbumActivity.contentScrollingProgressBar.visibility =
+                viewModel.progressBarVisibility()
+        })
+
+        viewModel.isError.observe(this, {
+            binding.scrollViewAlbumActivity.contentScrollingErrorMessage.visibility =
+                viewModel.errorMessageVisibility()
+        })
     }
 
     private fun setUpAdapter() {

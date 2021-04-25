@@ -8,9 +8,38 @@
     tools:context=".ui.ListAlbumActivity"
     tools:showIn="@layout/activity_list_album">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/content_scrolling_recycler_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/content_scrolling_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:max="100"
+            android:visibility="gone"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/purple_700"
+            android:layout_marginTop="-7dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content_scrolling_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/content_scrolling_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_get_albums"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,7 +1,8 @@
 package com.pickupservices.mypics.domain.repository
 
+import com.pickupservices.mypics.domain.Result
 import com.pickupservices.mypics.domain.model.Album
 
 interface IAlbumRepository {
-    fun getAllAlbums(): List<Album>
+    suspend fun getAllAlbums(): Result<List<Album>?>
 }
