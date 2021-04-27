@@ -1,4 +1,4 @@
-package com.pickupservices.mypics.ui
+package com.pickupservices.mypics.ui.album
 
 import android.content.Context
 import android.view.View

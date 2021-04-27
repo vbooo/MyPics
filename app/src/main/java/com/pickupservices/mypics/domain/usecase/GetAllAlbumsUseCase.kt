@@ -31,6 +31,7 @@ class GetAllAlbumsUseCase  @Inject constructor (
             for (album in it.data.orEmpty()) {
                 listFunctionalAlbum.add(
                     FunctionalAlbum(
+                        album.id,
                         album.title,
                         userRepository.getUserById(
                             album.idAuthor
@@ -47,6 +48,11 @@ class GetAllAlbumsUseCase  @Inject constructor (
 }
 
 data class FunctionalAlbum (
+    /**
+     * Id of the album
+     */
+    val id: Int,
+
     /**
      * Name album value
      */

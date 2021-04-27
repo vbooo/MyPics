@@ -12,7 +12,7 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(album: AlbumEntity)
 
-    @Query("SELECT * FROM album")
+    @Query("SELECT * FROM album ORDER BY title")
     fun getAll(): List<AlbumEntity>
 
 }

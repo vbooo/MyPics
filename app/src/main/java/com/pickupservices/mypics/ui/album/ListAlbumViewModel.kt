@@ -1,4 +1,4 @@
-package com.pickupservices.mypics.ui
+package com.pickupservices.mypics.ui.album
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData

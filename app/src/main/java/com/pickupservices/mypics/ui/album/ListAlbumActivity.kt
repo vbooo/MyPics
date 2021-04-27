@@ -1,5 +1,6 @@
-package com.pickupservices.mypics.ui
+package com.pickupservices.mypics.ui.album
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.pickupservices.mypics.R
 import com.pickupservices.mypics.databinding.ActivityListAlbumBinding
+import com.pickupservices.mypics.ui.gallery.GalleryActivity
+import com.pickupservices.mypics.ui.gallery.GalleryActivity.Companion.ID_ALBUM
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +55,19 @@ class ListAlbumActivity : AppCompatActivity() {
     }
 
     private fun setUpAdapter() {
-        viewAdapter = ListAlbumAdapter(this)
+
+        val listener = object: OnClickedItemListener {
+            override fun onItemClicked(idAlbum: Int) {
+                val intent = Intent(baseContext, GalleryActivity::class.java)
+                intent.putExtra(ID_ALBUM, idAlbum)
+                startActivity(intent)
+            }
+        }
+
+        viewAdapter = ListAlbumAdapter(
+            this,
+            listener
+        )
 
         // Set our recycler view which will contain our Album list
         binding.scrollViewAlbumActivity.contentScrollingRecyclerView.apply {

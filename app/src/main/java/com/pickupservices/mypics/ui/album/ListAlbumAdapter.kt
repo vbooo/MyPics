@@ -1,19 +1,20 @@
-package com.pickupservices.mypics.ui
+package com.pickupservices.mypics.ui.album
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pickupservices.mypics.R
-import com.pickupservices.mypics.domain.model.Album
 import com.pickupservices.mypics.domain.usecase.FunctionalAlbum
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 /**
  * This adapter handles albums list data
  */
-internal class ListAlbumAdapter(@ApplicationContext val context: Context) :
-    RecyclerView.Adapter<AlbumHolder>() {
+internal class ListAlbumAdapter(
+    @ApplicationContext val context: Context,
+    private var clickListener: OnClickedItemListener
+    ) : RecyclerView.Adapter<AlbumHolder>() {
 
     // This list contains all the Album
     var listAlbum: List<FunctionalAlbum>? = null
@@ -45,5 +46,16 @@ internal class ListAlbumAdapter(@ApplicationContext val context: Context) :
                 holder.setAuthorName(it)
             }
         }
+
+        holder.itemView.setOnClickListener {
+            listAlbum?.let {
+                clickListener.onItemClicked(it[position].id)
+            }
+        }
     }
+
+}
+
+interface OnClickedItemListener {
+    fun onItemClicked(idAlbum: Int)
 }
