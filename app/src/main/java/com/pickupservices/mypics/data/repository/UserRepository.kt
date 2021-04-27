@@ -3,12 +3,10 @@ package com.pickupservices.mypics.data.repository
 import com.pickupservices.mypics.data.INetworkUtils
 import com.pickupservices.mypics.data.datasource.user.UserLocalDataSource
 import com.pickupservices.mypics.data.datasource.user.UserRemoteDataSource
-import com.pickupservices.mypics.data.network.response.GetAllUsersResponse
 import com.pickupservices.mypics.domain.Result
 import com.pickupservices.mypics.domain.model.User
 import com.pickupservices.mypics.domain.repository.IUserRepository
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -27,12 +25,14 @@ class UserRepository @Inject constructor(
         }
     }
 
-    override suspend fun refreshUserData() {
+    override suspend fun refreshData() {
         if (networkUtils.isConnected()) {
             // we first get the fresh user data
             val allUsersResponse = datasourceUserRemote.getAll()
             // then we save it locally
             datasourceUserLocal.saveUsers(allUsersResponse)
+        } else {
+            Timber.i("Refresh user data is impossible because no Internet connection")
         }
     }
 

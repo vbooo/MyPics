@@ -20,9 +20,11 @@ class GetAllAlbumsUseCase  @Inject constructor (
         // Work is starting
         emit(Result.Loading)
 
-        // first, we refresh the data from the remote server because we will need it just after
-        userRepository.refreshUserData()
+        // First, we refresh the data from the remote server
+        userRepository.refreshData()
+        albumRepository.refreshData()
 
+        // Instanciating the list of functional Album to return
         val listFunctionalAlbum: MutableList<FunctionalAlbum> = mutableListOf()
 
         albumRepository.getAllAlbums().let {

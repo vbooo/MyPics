@@ -2,5 +2,5 @@
     <string name="app_name">MyPics</string>
     <string name="title_activity_list_album">Albums</string>
     <string name="unknownAuthorName">Auteur inconnu</string>
-    <string name="error_get_albums">Impossible de récupérer les albums</string>
+    <string name="error_get_data">Récupération des données impossible. Vérifiez votre connexion Internet.</string>
 </resources>

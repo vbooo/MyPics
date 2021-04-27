@@ -20,4 +20,8 @@ class AlbumLocalDataSource @Inject constructor(
             )
         }
     }
+
+    fun getAll(): List<AlbumEntity> {
+        return appDatabase.albumDao().getAll()
+    }
 }

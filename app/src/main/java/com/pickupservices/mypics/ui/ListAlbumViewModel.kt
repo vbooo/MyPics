@@ -40,7 +40,12 @@ class ListAlbumViewModel @Inject constructor(
                     is Result.Success ->  {
                         listAlbum.postValue(it.data)
                         isLoading.postValue(false)
-                        isError.postValue(false)
+                        if (it.data.isNullOrEmpty()) {
+                            isError.postValue(true)
+                        } else {
+                            isError.postValue(false)
+                        }
+
                     }
                 }
             }
