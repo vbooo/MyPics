@@ -4,16 +4,21 @@ import android.content.Context
 import com.pickupservices.mypics.data.INetworkUtils
 import com.pickupservices.mypics.data.datasource.album.AlbumLocalDataSource
 import com.pickupservices.mypics.data.datasource.album.AlbumRemoteDataSource
+import com.pickupservices.mypics.data.datasource.photo.PhotoLocalDataSource
+import com.pickupservices.mypics.data.datasource.photo.PhotoRemoteDataSource
 import com.pickupservices.mypics.data.datasource.user.UserLocalDataSource
 import com.pickupservices.mypics.data.datasource.user.UserRemoteDataSource
 import com.pickupservices.mypics.data.db.MyPicsDatabase
 import com.pickupservices.mypics.data.network.service.AlbumService
 import com.pickupservices.mypics.data.network.service.AppService.Companion.baseUrl
+import com.pickupservices.mypics.data.network.service.PhotoService
 import com.pickupservices.mypics.data.network.service.UserService
 import com.pickupservices.mypics.data.repository.AlbumRepository
+import com.pickupservices.mypics.data.repository.PhotoRepository
 import com.pickupservices.mypics.data.repository.UserRepository
 import com.pickupservices.mypics.data.utils.NetworkUtils
 import com.pickupservices.mypics.domain.repository.IAlbumRepository
+import com.pickupservices.mypics.domain.repository.IPhotoRepository
 import com.pickupservices.mypics.domain.repository.IUserRepository
 import dagger.Module
 import dagger.Provides
@@ -66,6 +71,20 @@ class MainModule {
 
     @Singleton
     @Provides
+    fun providePhotoRepository(
+        localDataSource: PhotoLocalDataSource,
+        remoteDataSource: PhotoRemoteDataSource,
+        networkUtils: INetworkUtils
+    ): IPhotoRepository {
+        return PhotoRepository(
+            localDataSource,
+            remoteDataSource,
+            networkUtils
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): MyPicsDatabase {
         return MyPicsDatabase.buildDatabase(context)
     }
@@ -88,4 +107,9 @@ class MainModule {
     @Singleton
     fun providesUserApi(retrofit: Retrofit): UserService = retrofit.create(
         UserService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesPhotoApi(retrofit: Retrofit): PhotoService = retrofit.create(
+        PhotoService::class.java)
 }

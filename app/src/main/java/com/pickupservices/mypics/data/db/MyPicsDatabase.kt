@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.pickupservices.mypics.data.db.dao.AlbumDao
+import com.pickupservices.mypics.data.db.dao.PhotoDao
 import com.pickupservices.mypics.data.db.dao.UserDao
 import com.pickupservices.mypics.data.db.entity.AlbumEntity
+import com.pickupservices.mypics.data.db.entity.PhotoEntity
 import com.pickupservices.mypics.data.db.entity.UserEntity
 
 /**
@@ -15,7 +17,8 @@ import com.pickupservices.mypics.data.db.entity.UserEntity
 @Database(
     entities = [
         AlbumEntity::class,
-        UserEntity::class
+        UserEntity::class,
+        PhotoEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -24,6 +27,7 @@ abstract class MyPicsDatabase : RoomDatabase() {
 
     abstract fun albumDao(): AlbumDao
     abstract fun userDao(): UserDao
+    abstract fun photoDao(): PhotoDao
 
     companion object {
         private const val DATABASE_NAME = "my_pics_db"
